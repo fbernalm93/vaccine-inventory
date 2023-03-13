@@ -1,0 +1,54 @@
+CREATE USER inventoryuseradmin;
+ALTER USER inventoryuseradmin WITH ENCRYPTED PASSWORD 'Technical$Challenge2023';
+
+CREATE DATABASE vaccinationInventoryApp;
+GRANT ALL PRIVILEGES ON DATABASE vaccinationInventoryApp TO inventoryuseradmin;
+
+create table person(
+   id varchar(10) primary key,
+   name varchar(100) not null,
+   lastname varchar(100) not null,
+   email varchar(75) not null,
+   birthdate date,
+   address varchar(100),
+   phonenumber varchar(10),
+   isVaccinated boolean
+);
+
+
+create table userApp(
+   username varchar(50) primary key,
+   password varchar(100) not null,
+	role varchar(20) not null
+);
+
+
+create table vaccine(
+  id int primary key,
+  name varchar(50) not null
+);
+
+create table vaccineperson(
+  idvaccine int not null,
+  idperson varchar(20) not null,
+  vaccinenumber int not null,
+  vaccinationdate date not null
+);
+ALTER TABLE ONLY vaccineperson ADD CONSTRAINT "PK_VACCINEPERSON" PRIMARY KEY (idvaccine, idperson,vaccinenumber);
+ALTER TABLE vaccineperson ADD CONSTRAINT fk_idvaccine FOREIGN KEY (idvaccine) REFERENCES vaccine (id);
+ALTER TABLE vaccineperson ADD CONSTRAINT fk_idpersonn FOREIGN KEY (idperson) REFERENCES person (id);
+
+insert into vaccine(id, name) values(1, 'Sputnik');
+insert into vaccine(id, name) values(2, 'AstraZeneca');
+insert into vaccine(id, name) values(3, 'Pfizer');
+insert into vaccine(id, name) values(4, 'Jhonson&Jhonson');
+
+--Create User Administrator to Test
+
+INSERT INTO public.person(
+	id, email, lastname, name)
+	VALUES ('0302195177', 'fbernalm@gmail.com', 'Bernal', 'Franklin');
+
+INSERT INTO public.user_app(
+	username, password, role)
+	VALUES ('0302195177', '0302195177', 'ADMINISTRATOR');
