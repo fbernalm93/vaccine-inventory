@@ -43,5 +43,6 @@ public class Person {
     private String address;
     @Column(name="phonenumber",length=10)
     private String phonenumber;
+    @Column(name="is_vaccinated")
     private Boolean isVaccinated;
 }

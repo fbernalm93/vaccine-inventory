@@ -11,13 +11,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import vaccinationinventory.person.domain.entity.Person;
 import vaccinationinventory.security.TokenJWT;
 import vaccinationinventory.user.application.UserService;
 import vaccinationinventory.user.domain.entity.UserApp;
-
 import javax.validation.Valid;
-import java.net.http.HttpResponse;
 
 @RestController
 @RequestMapping("/user")
@@ -25,9 +22,7 @@ public class UserController {
     @Autowired
     private UserService userService;
     @PostMapping("/login")
-    @ApiOperation(value = "Create a new person with Employee Role in database and a new user with required fields " +
-            "(id, " + "name, lastname,email),created user has username=person id and default password= person id," +
-            "(Role administrador required)")
+    @ApiOperation(value = "Login with user and password, in this case the user and pass are the person id")
     @ApiResponses(value = { @ApiResponse(code = 200, message = "Login Ok"),
             @ApiResponse(code = 400, message = "Not Login")})
     public ResponseEntity<TokenJWT> userLogin(@Valid @RequestBody UserApp user, BindingResult result){
